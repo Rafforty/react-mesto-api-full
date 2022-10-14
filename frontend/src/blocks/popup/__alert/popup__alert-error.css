@@ -1,0 +1,8 @@
+.popup__alert-error {
+  background-image: url("../../../images/popup__alert-error.svg");
+  margin: 60 auto 0;
+  width: 120px;
+  height: 120px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
