@@ -88,7 +88,7 @@ class Api {
     _setHeaders() {
         const jwt = localStorage.getItem("jwt");
         return {
-            'Authorization': `${jwt}`,
+            'Authorization': `Bearer ${jwt}`,
             ...this._headers,
         }
     }
