@@ -1,7 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const helmet = require('helmet');
 const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const userRoutes = require('./routes/users');
@@ -23,6 +25,7 @@ app.use(cors({
 
 mongoose.connect('mongodb://localhost:27017/mestodb');
 
+app.use(helmet());
 app.use(requestLogger);
 
 app.post('/signin', validationSignIn, login);

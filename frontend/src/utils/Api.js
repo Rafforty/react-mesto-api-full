@@ -4,6 +4,14 @@ class Api {
         this._headers = config.headers;
     }
 
+    _setHeaders() {
+        const jwt = localStorage.getItem("jwt");
+        return {
+            'Authorization': `Bearer ${jwt}`,
+            ...this._headers,
+        }
+    }
+    
     getInitialCards(){
         return fetch(`${this._url}/cards`,{
             method: 'GET',
@@ -83,14 +91,6 @@ class Api {
             method: (isLiked ? "PUT" : "DELETE"),
             headers: this._setHeaders()
         }).then(this._checkIfResOk)
-    }
-
-    _setHeaders() {
-        const jwt = localStorage.getItem("jwt");
-        return {
-            'Authorization': `Bearer ${jwt}`,
-            ...this._headers,
-        }
     }
 }
 
