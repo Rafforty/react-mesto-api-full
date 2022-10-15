@@ -114,7 +114,7 @@ function App() {
     
     api.changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
-        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+        setCards((state) => state.map(c => c._id === card._id ? newCard : c));
       })
         .catch((error) => {
           console.log(`Error: ${error}`);
@@ -124,7 +124,7 @@ function App() {
   function handleCardDelete(card) {
     api.deleteCard(card._id)
       .then(() => {
-        setCards(() => cards.filter((evt) => evt._id !== card._id));
+        setCards(() => cards.filter(evt => evt._id !== card._id));
         closeAllPopups();
       })
         .catch((error) => {
@@ -135,7 +135,7 @@ function App() {
   function handleRegistrationSubmit(data) {
     auth.register(data)
       .then(() => {
-        setIsSuccess(true);
+        setIsSuccess(true); 
         handleTooltipOpen();
         history.push("/signin")
       },
