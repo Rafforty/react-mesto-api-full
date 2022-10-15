@@ -26,7 +26,7 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
   }
 
   return (
-    <article className="cards__element" key={card._id}>
+    <article className="cards__element">
       <button
         className={cardDeleteButtonClassName}
         type="button"
