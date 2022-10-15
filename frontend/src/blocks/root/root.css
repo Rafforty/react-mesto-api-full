@@ -6,4 +6,5 @@
     margin: 0 auto;
     color: white;
     font-family: 'Inter', Arial, Helvetica, sans-serif;
+    min-height: 100vh;
 }

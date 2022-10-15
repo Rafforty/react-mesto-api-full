@@ -74,7 +74,7 @@ function App() {
           console.log(`Error: ${error}`);
         });
       }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, history]);
 
   function handleUpdateUser(user) {
     api.changeUser(user)
@@ -166,15 +166,15 @@ function App() {
   }, [])
 
   function handleLogout() {
-    localStorage.removeItem("jwt");
+    localStorage.removeItem('jwt');
     history.push("/signin");
   }
 
   function handleLogin(password, email) {
     auth.authorize(password, email)
       .then((data) => {
-        setIsLoggedIn(true);
-        localStorage.setItem("jwt", data.token);
+        localStorage.setItem('jwt', data.token);
+        setIsLoggedIn(true);       
         setEmail(email);
         history.push("/");
       })
