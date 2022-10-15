@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const userRoutes = require('./routes/users');
@@ -15,13 +14,11 @@ const NotFoundError404 = require('./errors/NotFoundError404');
 const { PORT = 3000 } = process.env;
 const app = express();
 
-app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors({
   origin: 'https://mesto.frontend.rafforty.nomoredomains.icu',
   // origin: 'http://localhost:3001',
-  credentials: true,
 }));
 
 mongoose.connect('mongodb://localhost:27017/mestodb');
