@@ -153,7 +153,7 @@ function App() {
         .then((res) => {
           if (res) {
             // console.log(res)
-            setEmail(res.data.email);
+            setEmail(res.email);
             setIsLoggedIn(true);
             history.push("/");
           };
@@ -166,15 +166,16 @@ function App() {
   }, [])
 
   function handleLogout() {
-    localStorage.removeItem("jwt");
+    localStorage.removeItem('jwt');
+    setEmail('');
     history.push("/signin");
   }
 
   function handleLogin(password, email) {
     auth.authorize(password, email)
-      .then((data) => {
+      .then((jwt) => {
         setIsLoggedIn(true);
-        localStorage.setItem("jwt", data.token);
+        localStorage.setItem('jwt', jwt.token);
         setEmail(email);
         history.push("/");
       })

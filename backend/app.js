@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const helmet = require('helmet');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
@@ -24,6 +25,8 @@ app.use(cors({
   origin: 'https://mesto.frontend.rafforty.nomoredomains.icu',
   credentials: true,
 }));
+
+app.use(helmet());
 
 app.use(requestLogger);
 
