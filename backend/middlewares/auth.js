@@ -4,7 +4,7 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 const UnauthorizedError401 = require('../errors/UnauthorizedError401');
 
 module.exports = (req, res, next) => {
-  const { authorization } = req.headers;
+  const { authorization } = req.cookies.jwt;
   if (!authorization || !authorization.startsWith('Bearer ')) {
     next(new UnauthorizedError401('Требуется авторизация'));
   }

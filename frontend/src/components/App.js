@@ -166,15 +166,15 @@ function App() {
   }, [])
 
   function handleLogout() {
-    localStorage.removeItem('jwt');
+    localStorage.removeItem("jwt");
     history.push("/signin");
   }
 
   function handleLogin(password, email) {
     auth.authorize(password, email)
       .then((data) => {
-        localStorage.setItem('jwt', data.token);
-        setIsLoggedIn(true);       
+        setIsLoggedIn(true);
+        localStorage.setItem("jwt", data.token);
         setEmail(email);
         history.push("/");
       })

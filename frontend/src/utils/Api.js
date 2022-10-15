@@ -5,13 +5,13 @@ class Api {
     }
 
     _setHeaders() {
-        const jwt = localStorage.getItem("jwt");
+        const jwt = localStorage.getItem('jwt');
         return {
             'Authorization': `Bearer ${jwt}`,
             ...this._headers,
         }
     }
-    
+
     getInitialCards(){
         return fetch(`${this._url}/cards`,{
             method: 'GET',
@@ -94,9 +94,8 @@ class Api {
     }
 }
 
-
 const api = new Api({
-    url: 'https://api.mesto.rafforty.nomoredomains.icu',
+    url: "https://api.mesto.rafforty.nomoredomains.icu",
     headers: {
       "Content-type": "application/json"
     },
