@@ -6,8 +6,13 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const routes = require('./routes/index');
+const userRoutes = require('./routes/users');
+const cardRoutes = require('./routes/cards');
+const auth = require('./middlewares/auth');
+const { validationSignUp, validationSignIn } = require('./middlewares/validation');
+const { login, createUser } = require('./controllers/users');
 const errorHandler = require('./middlewares/errorHandler');
+const NotFoundError404 = require('./errors/NotFoundError404');
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -32,7 +37,15 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-app.use(routes);
+app.post('/signin', validationSignIn, login);
+app.post('/signup', validationSignUp, createUser);
+
+app.use(auth);
+app.use('/', userRoutes);
+app.use('/', cardRoutes);
+app.use('/', (req, res, next) => {
+  next(new NotFoundError404('Страница не найдена.'));
+});
 
 app.use(errorLogger);
 
