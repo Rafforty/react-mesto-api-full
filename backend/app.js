@@ -6,12 +6,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const userRoutes = require('./routes/users');
-const cardRoutes = require('./routes/cards');
-const auth = require('./middlewares/auth');
-const { validationSignUp, validationSignIn } = require('./middlewares/validation');
-const { login, createUser } = require('./controllers/users');
-const NotFoundError404 = require('./errors/NotFoundError404');
+const routes = require('./routes/index');
+const errorHandler = require('./middlewares/errorHandler');
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -36,23 +32,11 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-app.post('/signin', validationSignIn, login);
-app.post('/signup', validationSignUp, createUser);
-
-app.use(auth);
-app.use('/', userRoutes);
-app.use('/', cardRoutes);
-app.use('/', (req, res, next) => {
-  next(new NotFoundError404('Страница не найдена.'));
-});
+app.use(routes);
 
 app.use(errorLogger);
 
 app.use(errors());
-app.use((err, req, res, next) => {
-  const { statusCode = 500, message } = err;
-  res.status(statusCode).send({ message: statusCode === 500 ? 'Произошла ошибка сервера' : message });
-  next();
-});
+app.use(errorHandler);
 
 app.listen(PORT);
