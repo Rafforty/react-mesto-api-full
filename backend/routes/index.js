@@ -6,14 +6,14 @@ const NotFoundError = require('../errors/NotFoundError404');
 const { login, createUser } = require('../controllers/users');
 const { validationSignUp, validationSignIn } = require('../middlewares/validation');
 
-router.post('/signin', validationSignIn, login);
 router.post('/signup', validationSignUp, createUser);
+router.post('/signin', validationSignIn, login);
 
 router.use(auth);
 router.use('/users', userRouter);
 router.use('/cards', cardRouter);
 
-router.use((req, res, next) => {
+router.use('*', (req, res, next) => {
   next(new NotFoundError('Маршрут не найден'));
 });
 
