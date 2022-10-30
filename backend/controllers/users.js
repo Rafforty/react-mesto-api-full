@@ -125,3 +125,7 @@ module.exports.login = (req, res, next) => {
       }
     });
 };
+
+// .env (сохранен локально на моем ПК)
+// NODE_ENV=production
+// JWT_SECRET=dev-secret-key-local
